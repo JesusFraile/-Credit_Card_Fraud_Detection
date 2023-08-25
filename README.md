@@ -35,7 +35,7 @@ Fijaremos un umbral para hacer la clasificación, este será de 0.7. Si el error
 
 Obteniendo la matriz de confusión obtenemos que el modelo tiene un rendimiento muy aceptable a la hora de identificar las transacciones fraudulentas. Aunque presenta errores al clasificar 4213 transacciones correctas, es preferible que clasifique correctamente las fraudulentas.
 
-![](https://github.com/JesusFraile/-Credit_Card_Fraud_Detection/blob/main/Images/cm.png)    ![](https://github.com/JesusFraile/-Credit_Card_Fraud_Detection/blob/main/Images/confusion_matrix.png)
+![](https://github.com/JesusFraile/-Credit_Card_Fraud_Detection/blob/main/Images/cm.png)![](https://github.com/JesusFraile/-Credit_Card_Fraud_Detection/blob/main/Images/confusion_matrix.png)
 
 
 
