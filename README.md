@@ -1,45 +1,53 @@
-# Detección de Fraude en Transacciones Bancarias mediante el Uso de Autoencoders
-La detección eficiente de fraudes en operaciones con tarjetas de crédito ha sido durante mucho tiempo un desafío constante para las instituciones financieras y las empresas. La sofisticación de las técnicas de fraude y el constante desarrollo de nuevas estrategias hacen que la tarea de identificar transacciones fraudulentas sea un aspecto crucial en la seguridad financiera. En este contexto, el empleo de técnicas avanzadas de machine learning, como los autoencoders, ha demostrado ser una solución prometedora para abordar este problema, especialmente en conjuntos de datos altamente desbalanceados.
+# Fraud Detection in Banking Transactions Using Autoencoders
+
+Efficient detection of credit card fraud has long been a persistent challenge for financial institutions and businesses. The sophistication of fraud techniques and the continuous development of new strategies make identifying fraudulent transactions a crucial aspect of financial security. In this context, the application of advanced machine learning techniques, such as autoencoders, has proven to be a promising solution, especially when working with highly imbalanced datasets.
+
 ## Autoencoders
-Los autoencoders son una clase de redes neuronales artificiales que se utilizan para el aprendizaje no supervisado de representaciones de datos. La peculiaridad de los autoencoders radica en su capacidad para comprimir datos en un espacio de menor dimensión y, posteriormente, reconstruirlos con alta precisión. Este proceso de compresión y reconstrucción permite la identificación de patrones intrínsecos y la detección de anomalías en los datos.
+Autoencoders are a class of artificial neural networks used for unsupervised learning of data representations. Their distinctive capability lies in compressing data into a lower-dimensional space and subsequently reconstructing it with high accuracy. This compression–reconstruction process enables the identification of intrinsic patterns and anomaly detection in data.
 
 ![](https://github.com/JesusFraile/-Credit_Card_Fraud_Detection/blob/main/Images/autoencoder.png)
-### Entrenamiento y Concepto Fundamental
-En el caso de la detección de fraudes en transacciones bancarias, el autoencoder se entrena con transacciones **normales**, permitiéndole aprender las características y patrones típicos de estas transacciones. Una vez entrenado, el autoencoder compara las características de una nueva transacción con las que ha aprendido. Si la discrepancia entre la entrada y la salida reconstruida es significativa, el modelo indica que la transacción podría ser **fraudulenta**.
 
-## Exploración del conjunto de datos
-El éxito de cualquier técnica de detección de fraudes radica en su capacidad para abordar conjuntos de datos altamente desbalanceados. En este contexto, el conjunto de datos utilizado para este estudio contiene 284315 transacciones normales y tan solo 492 transacciones fraudulentas. La desproporción entre estas clases enfatiza la necesidad de un enfoque que pueda manejar adecuadamente tales desequilibrios. El conjunto de datos con el que se va a trabajar se encuentra disponible en el siguiente [[enlace]][dataset]. 
+### Training and Core Concept
+
+In the context of fraud detection in banking transactions, the autoencoder is trained using normal transactions, allowing it to learn their typical features and patterns. Once trained, the autoencoder compares the characteristics of a new transaction with those it has learned. If the discrepancy between the input and the reconstructed output is significant, the model indicates that the transaction may be fraudulent.
+
+## Dataset Exploration
+
+The success of any fraud detection technique depends on its ability to handle highly imbalanced datasets. The dataset used in this study contains 284,315 normal transactions and only 492 fraudulent transactions. This disproportion underscores the need for approaches capable of managing such imbalances. The dataset is publicly available at the following [[link]][dataset]. 
 
 ![](https://github.com/JesusFraile/-Credit_Card_Fraud_Detection/blob/main/Images/contador.png)
 
-A priori se podría pensar que la cantidad de dinero que se retira será el factor clave para identificar las transacciones fraudulentas, pero representando los porcentajes de transacciones de cada tipo frente a la cantidad de dinero sacado se puede ver que no es un factor clave en la identificación. 
+One might initially assume that the transaction amount would be the key factor in identifying fraudulent behaviour. However, visualising the proportion of transaction types against transaction amounts shows that it is not a decisive factor.
 
 ![](https://github.com/JesusFraile/-Credit_Card_Fraud_Detection/blob/main/Images/monto.png)
 
-Realizando un pequeño proceso de exploración de los datos podemos ver que existen características que no presentan diferencia entre los dos típos de transacciones y algunas con una diferencia bastante significativa. Estas diferencias serán la clave que permitirán al modelo distinguir entre ambos tipos. 
+A brief exploratory analysis reveals that some features show little to no difference between normal and fraudulent transactions, while others exhibit significant variation. These differences are essential for enabling the model to distinguish between the two types.
 
 ![](https://github.com/JesusFraile/-Credit_Card_Fraud_Detection/blob/main/Images/f1.png)![](https://github.com/JesusFraile/-Credit_Card_Fraud_Detection/blob/main/Images/f2.png)
 
-##Diseño y Arquitectura del Modelo
-El modelo de autoencoder desarrollado para la detección de fraudes bancarios consta de tres componentes principales:
-1. **Encoder:** Esta parte de la red reduce la dimensionalidad de las características de entrada, capturando los patrones más importantes de las transacciones. Consta de una capa de entrada de 29 neuronas, con una capa oculta con 20 neuronas.
-2. **Espacio Latente:** Aquí, las características se representan en un espacio de menor dimensión que contiene la información esencial sobre las transacciones. Este presenta 14 dimensiones. 
-3. **Decoder: **El Decoder se encarga de reconstruir los datos comprimidos en el espacio latente a su forma original. Presenta una estructura simétrica al Encoder.
+## Model Design and Architecture
+
+The autoencoder model developed for banking fraud detection consists of three main components:
+1. **Encoder:** Reduces the dimensionality of input features, capturing the most important transaction patterns. It includes an input layer of 29 neurons and a hidden layer of 20 neurons.
+2. **Latent Space:** Represents features in a lower-dimensional space containing the essential transaction information. This consists of 14 dimensions.
+3. **Decoder:** Reconstructs compressed data from the latent space back into its original form, mirroring the structure of the Encoder.
 
 ![](https://github.com/JesusFraile/-Credit_Card_Fraud_Detection/blob/main/Images/model_autoencoder.png)
 
-La arquitectura simétrica del autoencoder permite la compresión de características y la posterior reconstrucción con el objetivo de minimizar la diferencia entre los datos originales y los reconstruidos.
-##Evaluación y Validación del Modelo
-Para evaluar la efectividad del modelo de autoencoder en la detección de fraudes, se utiliza el error cuadrático medio (MSE, por sus siglas en inglés) como métrica de rendimiento. Un umbral predefinido se emplea para clasificar las transacciones como normales o fraudulentas. Si el error de reconstrucción excede el umbral, la transacción se identifica como potencialmente fraudulenta.
+The symmetric architecture of the autoencoder enables compression and reconstruction with the objective of minimising the difference between original and reconstructed data.
+
+## Model Evaluation and Validation
+
+To assess the effectiveness of the autoencoder in fraud detection, the mean squared error (MSE) is used as the performance metric. A predefined threshold is applied to classify transactions as normal or fraudulent. If the reconstruction error exceeds this threshold, the transaction is flagged as potentially fraudulent.
 
 ![](https://github.com/JesusFraile/-Credit_Card_Fraud_Detection/blob/main/Images/CodeCogsEqn.png)
 
-Aunque el modelo presenta ciertos errores al clasificar transacciones normales, la capacidad de identificar con precisión transacciones fraudulentas es un aspecto crucial. La matriz de confusión revela que el modelo logra un rendimiento aceptable al detectar fraudes, incluso si se cometen algunos errores al clasificar transacciones legítimas.
+Although the model occasionally misclassifies normal transactions, its ability to accurately identify fraudulent cases remains crucial. The confusion matrix shows that the model achieves acceptable performance in detecting fraud, even at the expense of some errors in legitimate classifications.
 
 ![](https://github.com/JesusFraile/-Credit_Card_Fraud_Detection/blob/main/Images/cm.PNG)    ![](https://github.com/JesusFraile/-Credit_Card_Fraud_Detection/blob/main/Images/confusion_matrix.PNG)
 
 ## Conclusión
-La detección de fraudes en transacciones bancarias a través del uso de autoencoders presenta un enfoque prometedor en la lucha contra el fraude financiero. La capacidad del modelo para aprender patrones de transacciones normales y detectar anomalías en nuevos datos lo convierte en una herramienta valiosa en la prevención de pérdidas financieras y la protección de los activos de los clientes. Si bien los desafíos de los conjuntos de datos desbalanceados persisten, el enfoque de autoencoder demuestra su utilidad y potencial en la detección temprana y precisa de fraudes en el ámbito financiero.
+Fraud detection in banking transactions through the use of autoencoders presents a promising approach in combating financial fraud. The model’s ability to learn patterns of normal transactions and identify anomalies in new data makes it a valuable tool for preventing financial losses and safeguarding customer assets. While challenges associated with imbalanced datasets remain, the autoencoder approach demonstrates its usefulness and potential for early and accurate fraud detection in the financial domain.
 
 
 [dataset]: https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud 
